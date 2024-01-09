@@ -10,15 +10,18 @@ public class GameState {
 
     public GameState(GameTileType activePlayer) {
         tiles = new GameTileType[3][3];
+        fill(GameTileType.None);
 
+        this.activePlayer = activePlayer;
+    }
+
+    public void fill(GameTileType tile) {
         for (int i = 0; i < tiles.length; i++) {
             var row = tiles[i];
             for (int j = 0; j < tiles.length; j++) {
-                row[j] = GameTileType.None;
+                row[j] = tile;
             }
         }
-
-        this.activePlayer = activePlayer;
     }
 
     public GameTileType getTile(int x, int y) {
