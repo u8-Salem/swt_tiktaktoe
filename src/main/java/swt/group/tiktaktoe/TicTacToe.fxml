@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="swt.group.tiktaktoe.Controller"
+          hgap="5" vgap="5">
+
+
+    <Button text="Cell 1" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+    <Button text="Cell 2" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+    <!-- nested gridpanes -->
+    <GridPane GridPane.rowIndex="1" GridPane.columnIndex="0">
+        <Button text="Cell 4" />
+        <Button text="Cell 5" />
+    </GridPane>
+</GridPane>

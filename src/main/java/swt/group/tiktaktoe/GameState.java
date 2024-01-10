@@ -39,4 +39,15 @@ public class GameState {
     public void setActivePlayer(GameTileType player) {
         activePlayer = player;
     }
+
+    public boolean isBoardFull() {
+        for (var row : tiles) {
+            for (var tile : row) {
+                if (tile == GameTileType.None) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
