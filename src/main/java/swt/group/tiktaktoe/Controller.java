@@ -1,4 +1,5 @@
 package swt.group.tiktaktoe;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,21 +47,21 @@ public class Controller implements AppControlInterface {
 
     @Override
     public void handleButtonClick(int row, int col) {
-        if (gameMaster.getState().getTile(row, col) == GameTileType.None) {
-            gameMaster.getState().setTile(row, col, gameMaster.getState().getActivePlayer());
-            buttons[row][col].setText(gameMaster.getState().getActivePlayer().toString());
-            gameMaster.nextRound();
+        if (gameMaster.getState().getTile(row, col) != GameTileType.None)
+            return;
 
-            // Check on every click if the game is still "legal"
-            GameTileType winner = gameMaster.getWinner();
-            if (winner != GameTileType.None) {
-                announceWinner(winner);
-            } else if (gameMaster.getState().isBoardFull()) {
-                announceDraw();
-            } else {
-                gameMaster.nextRound();
-            }
-        }
+        var activePlayer = gameMaster.getState().getActivePlayer();
+
+        var isWin = gameMaster.doTurn(row, col, activePlayer);
+
+        buttons[row][col].setText(activePlayer.toString());
+
+        if (isWin)
+            announceWinner(activePlayer);
+        else if (gameMaster.getState().isBoardFull())
+            announceDraw();
+        else
+            gameMaster.nextRound();
     }
 
     private void announceDraw() {
