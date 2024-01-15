@@ -1,4 +1,5 @@
 package swt.group.tiktaktoe;
+import javafx.event.ActionEvent;
 import javafx.scene.*;
 import javafx.stage.Stage;
 
@@ -12,7 +13,7 @@ import java.io.IOException;
 public interface AppControlInterface {
     public void startGame(Stage primaryStage) throws IOException;
     public void initBoard();
-    public void handleButtonClick(int row, int col);
+    public void handleButtonClick(ActionEvent event);
     public void updateBoard();
     public void resetBoard();
     public void endGame();

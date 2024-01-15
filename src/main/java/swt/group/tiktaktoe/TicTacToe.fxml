@@ -10,13 +10,16 @@
           fx:controller="swt.group.tiktaktoe.Controller"
           hgap="5" vgap="5">
 
+    <Button fx:id="button00" text="" GridPane.rowIndex="0" GridPane.columnIndex="0" onAction="#handleButtonClick" />
+    <Button fx:id="button01" text="" GridPane.rowIndex="0" GridPane.columnIndex="1" onAction="#handleButtonClick" />
+    <Button fx:id="button02" text="" GridPane.rowIndex="0" GridPane.columnIndex="2" onAction="#handleButtonClick" />
 
-    <Button text="Cell 1" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-    <Button text="Cell 2" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+    <Button fx:id="button10" text="" GridPane.rowIndex="1" GridPane.columnIndex="0" onAction="#handleButtonClick" />
+    <Button fx:id="button11" text="" GridPane.rowIndex="1" GridPane.columnIndex="1" onAction="#handleButtonClick" />
+    <Button fx:id="button12" text="" GridPane.rowIndex="1" GridPane.columnIndex="2" onAction="#handleButtonClick" />
 
-    <!-- nested gridpanes -->
-    <GridPane GridPane.rowIndex="1" GridPane.columnIndex="0">
-        <Button text="Cell 4" />
-        <Button text="Cell 5" />
-    </GridPane>
+    <Button fx:id="button20" text="" GridPane.rowIndex="2" GridPane.columnIndex="0" onAction="#handleButtonClick" />
+    <Button fx:id="button21" text="" GridPane.rowIndex="2" GridPane.columnIndex="1" onAction="#handleButtonClick" />
+    <Button fx:id="button22" text="" GridPane.rowIndex="2" GridPane.columnIndex="2" onAction="#handleButtonClick" />
+
 </GridPane>
