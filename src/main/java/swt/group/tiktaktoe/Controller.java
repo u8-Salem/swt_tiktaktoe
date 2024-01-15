@@ -58,7 +58,7 @@ public class Controller implements AppControlInterface {
             gameMaster.nextRound();
 
             // Check on every click if the game is still "legal"
-            GameTileType winner = gameMaster.getWinner();
+            GameTileType winner = gameMaster.getWinner(); //Getwinner is not implemented yet
             if (winner != GameTileType.None) {
                 announceWinner(winner);
             } else if (gameMaster.getState().isBoardFull()) {
