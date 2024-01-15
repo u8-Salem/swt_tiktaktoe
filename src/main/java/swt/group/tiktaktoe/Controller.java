@@ -45,8 +45,9 @@ public class Controller implements Initializable {
         int col = GridPane.getColumnIndex(clickedButton);
         int row = GridPane.getRowIndex(clickedButton);
 
-        if (gameState.getTile(row, col) != GameTileType.None)
+        if (gameState.getTile(row, col) != GameTileType.None) {
             return;
+        }
 
         var activePlayer = gameState.getActivePlayer();
 
@@ -63,14 +64,16 @@ public class Controller implements Initializable {
     }
 
     private void announceDraw() {
-        Alert alert = new Alert(AlertType.INFORMATION, "The game resulted in a draw!", ButtonType.OK);
+        Alert alert = new Alert(AlertType.INFORMATION,
+                "The game resulted in a draw!", ButtonType.OK);
         alert.showAndWait();
 
         resetBoard();
     }
 
     private void announceWinner(GameTileType winner) {
-        Alert alert = new Alert(AlertType.INFORMATION, winner.toString() + " won the game!", ButtonType.OK);
+        Alert alert = new Alert(AlertType.INFORMATION,
+                winner.toString() + " won the game!", ButtonType.OK);
         alert.showAndWait();
 
         resetBoard();

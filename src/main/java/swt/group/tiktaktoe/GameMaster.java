@@ -8,8 +8,9 @@ public class GameMaster {
     }
 
     public GameMaster(GameState state) {
-        if (state == null)
+        if (state == null) {
             throw new IllegalArgumentException("state is null.");
+        }
 
         this.state = state;
     }
@@ -23,8 +24,9 @@ public class GameMaster {
     }
 
     public boolean doTurn(int x, int y, GameTileType tile) {
-        if (state.getTile(x, y) != GameTileType.None)
+        if (state.getTile(x, y) != GameTileType.None) {
             throw new UnsupportedOperationException("Tile is already set.");
+        }
 
         state.setTile(x, y, tile);
 
@@ -32,15 +34,17 @@ public class GameMaster {
         for (int row = 0; row < 3; row++) {
             win &= state.getTile(x, row) == tile;
         }
-        if (win)
+        if (win) {
             return true;
+        }
 
         win = true;
         for (int column = 0; column < 3; column++) {
             win &= state.getTile(column, y) == tile;
         }
-        if (win)
+        if (win) {
             return true;
+        }
 
         if (x == y || x == 2 - y) {
             win = true;
