@@ -1,111 +1,93 @@
 package swt.group.tiktaktoe;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
-import java.io.IOException;
-
-public class Controller implements AppControlInterface {
+public class Controller implements Initializable {
     @FXML
     private GridPane boardGrid;
+
     private Button[][] buttons;
-    private final GameMaster gameMaster = new GameMaster();
 
-    @Override
-    public void startGame(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("TicTacToe.fxml"));
-        Parent root = loader.load();
+    private GameState gameState;
+    private GameMaster gameMaster;
 
-        AppControlInterface controller = loader.getController();
-
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Tic Tac Toe");
-        primaryStage.show();
-
-        controller.initBoard();
+    public Controller() {
+        gameState = new GameState();
+        gameMaster = new GameMaster(gameState);
     }
 
     @Override
-    public void initBoard() {
+    public void initialize(URL location, ResourceBundle resources) {
         buttons = new Button[3][3];
         for (int i = 0; i < boardGrid.getChildren().size(); i++) {
             var button = (Button) boardGrid.getChildren().get(i);
+
             var x = i % 3;
             var y = i / 3;
-            buttons[x][y] = button;
 
-            button.setMinWidth(100); 
-            button.setMinHeight(100);
-            button.setMaxWidth(100); 
-            button.setMaxHeight(100); 
+            buttons[x][y] = button;
         }
     }
 
-    @Override
     @FXML
     public void handleButtonClick(ActionEvent event) {
-        Button clickedButton = (Button) event.getSource();
+        var clickedButton = (Button) event.getSource();
         int col = GridPane.getColumnIndex(clickedButton);
         int row = GridPane.getRowIndex(clickedButton);
 
-        boolean turnSuccessful = gameMaster.doTurn(row, col, gameMaster.getState().getActivePlayer());
-        clickedButton.setText(gameMaster.getState().getActivePlayer().toString());
+        if (gameState.getTile(row, col) != GameTileType.None)
+            return;
 
-        if (turnSuccessful) {
+        var activePlayer = gameState.getActivePlayer();
+
+        clickedButton.setText(activePlayer.toString());
+
+        var isWin = gameMaster.doTurn(row, col, activePlayer);
+        if (isWin) {
+            announceWinner(activePlayer);
+        } else if (gameState.isBoardFull()) {
+            announceDraw();
+        } else {
             gameMaster.nextRound();
-
-            // Check on every click if the game is still "legal"
-            GameTileType winner = gameMaster.getWinner();
-            if (winner != GameTileType.None) {
-                announceWinner(winner);
-            } else if (gameMaster.getState().isBoardFull()) {
-                announceDraw();
-            }
         }
     }
 
     private void announceDraw() {
         Alert alert = new Alert(AlertType.INFORMATION, "The game resulted in a draw!", ButtonType.OK);
         alert.showAndWait();
-        if (alert.getResult() == ButtonType.OK) {
-            resetBoard();
-        }
+
+        resetBoard();
     }
 
     private void announceWinner(GameTileType winner) {
         Alert alert = new Alert(AlertType.INFORMATION, winner.toString() + " won the game!", ButtonType.OK);
         alert.showAndWait();
-        if (alert.getResult() == ButtonType.OK) {
-            resetBoard();
-        }
+
+        resetBoard();
     }
 
-    @Override
-    public void updateBoard() {
+    private void updateBoard() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                buttons[row][col].setText(gameMaster.getState().getTile(row, col).toString());
+                var tile = gameState.getTile(row, col);
+
+                buttons[row][col].setText(tile.toString());
             }
         }
     }
 
-    @Override
-    public void resetBoard() {
+    private void resetBoard() {
         gameMaster.reset();
         updateBoard();
-    }
-
-    @Override
-    public void endGame() {
-        System.exit(0);
     }
 }
