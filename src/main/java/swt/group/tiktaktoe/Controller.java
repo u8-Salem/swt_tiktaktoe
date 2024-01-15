@@ -17,7 +17,7 @@ public class Controller implements AppControlInterface {
     @FXML
     private GridPane boardGrid;
     private Button[][] buttons;
-    private GameMaster gameMaster;
+    private final GameMaster gameMaster = new GameMaster();
 
     @Override
     public void startGame(Stage primaryStage) throws IOException {
@@ -42,6 +42,11 @@ public class Controller implements AppControlInterface {
             var x = i % 3;
             var y = i / 3;
             buttons[x][y] = button;
+
+            button.setMinWidth(100); 
+            button.setMinHeight(100);
+            button.setMaxWidth(100); 
+            button.setMaxHeight(100); 
         }
     }
 
@@ -52,13 +57,14 @@ public class Controller implements AppControlInterface {
         int col = GridPane.getColumnIndex(clickedButton);
         int row = GridPane.getRowIndex(clickedButton);
 
-        if (gameMaster.getState().getTile(row, col) == GameTileType.None) {
-            gameMaster.getState().setTile(row, col, gameMaster.getState().getActivePlayer());
-            buttons[row][col].setText(gameMaster.getState().getActivePlayer().toString());
+        boolean turnSuccessful = gameMaster.doTurn(row, col, gameMaster.getState().getActivePlayer());
+        clickedButton.setText(gameMaster.getState().getActivePlayer().toString());
+
+        if (turnSuccessful) {
             gameMaster.nextRound();
 
             // Check on every click if the game is still "legal"
-            GameTileType winner = gameMaster.getWinner(); //Getwinner is not implemented yet
+            GameTileType winner = gameMaster.getWinner();
             if (winner != GameTileType.None) {
                 announceWinner(winner);
             } else if (gameMaster.getState().isBoardFull()) {

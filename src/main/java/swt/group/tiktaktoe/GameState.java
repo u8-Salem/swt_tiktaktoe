@@ -5,7 +5,7 @@ public class GameState {
     private GameTileType activePlayer;
 
     public GameState() {
-        this(GameTileType.Circle);
+        this(GameTileType.O);
     }
 
     public GameState(GameTileType activePlayer) {
