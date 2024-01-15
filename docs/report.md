@@ -1,4 +1,3 @@
-# Bericht
 ## Auswahl der Anwendung:
 Wir haben uns bei der Auswahl einer geeigneten Anwendung für unser Projekt für ein klassisches Spiel entschieden, das weithin bekannt und beliebt ist - Tic-Tac-Toe. Die Auswahl von Tic-Tac-Toe bietet uns die Möglichkeit, elementare Grundsätze der Programmierung und Logik zu demonstrieren, was es zu einem geeigneten und interessanten Projekt für Bildungszwecke macht. Bei dem Spiel müssen zwei Spieler abwechselnd "X" oder "O" auf einem markierten 3x3-Gitter legen, um eine Gewinnkombination zu erzielen.
 
