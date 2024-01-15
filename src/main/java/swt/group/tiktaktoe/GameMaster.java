@@ -65,38 +65,6 @@ public class GameMaster {
         return false;
     }
 
-    /**
-     * Checks if the game is over and returns the winner
-     * 
-     * @return GameTileType
-     * @author Shantanu Biradar
-     */
-    public GameTileType getWinner() {
-        // Check across the rows and columns
-        for (int i = 0; i < 3; i++) {
-            if (state.getTile(i, 0) != GameTileType.None && state.getTile(i, 0) == state.getTile(i, 1)
-                    && state.getTile(i, 1) == state.getTile(i, 2)) {
-                return state.getTile(i, 0);
-            }
-            if (state.getTile(0, i) != GameTileType.None && state.getTile(0, i) == state.getTile(1, i)
-                    && state.getTile(1, i) == state.getTile(2, i)) {
-                return state.getTile(0, i);
-            }
-        }
-
-        // Check across the diagonals
-        if (state.getTile(0, 0) != GameTileType.None && state.getTile(0, 0) == state.getTile(1, 1)
-                && state.getTile(1, 1) == state.getTile(2, 2)) {
-            return state.getTile(0, 0);
-        }
-        if (state.getTile(0, 2) != GameTileType.None && state.getTile(0, 2) == state.getTile(1, 1)
-                && state.getTile(1, 1) == state.getTile(2, 0)) {
-            return state.getTile(0, 2);
-        }
-
-        return GameTileType.None;
-    }
-
     public void nextRound() {
         switch (state.getActivePlayer()) {
             case O:
